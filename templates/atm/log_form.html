@@ -1,0 +1,14 @@
+{% extends 'atm/base.html' %}
+
+{% block title %}Log form - ATM Management System{% endblock %}
+
+{% block content %}
+
+
+    <h1>Log Form</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+{% endblock %}

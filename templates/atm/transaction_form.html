@@ -1,0 +1,59 @@
+{% extends 'atm/base.html' %}
+
+{% block title %}Transaction Form - ATM Management System{% endblock %}
+
+{% block content %}
+    <div class="login-container">
+        <h2 class="text-center">Transaction Form</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="account">Account</label>
+                <select class="form-control" id="account" name="account" required>
+                    {% for account in form.account.field.queryset %}
+                        <option value="{{ account.pk }}" {% if account.pk == form.account.value %}selected{% endif %}>
+                            {{ account.account_number }} - {{ account.customer.first_name }} {{ account.customer.last_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="transaction_type">Transaction Type</label>
+                <select class="form-control" id="transaction_type" name="transaction_type" required>
+                    {% for choice in form.transaction_type.field.choices %}
+                        <option value="{{ choice.0 }}" {% if choice.0 == form.transaction_type.value %}selected{% endif %}>
+                            {{ choice.1 }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" class="form-control" id="amount" name="amount" value="{{ form.amount.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="transaction_date">Transaction Date</label>
+                <input type="date" class="form-control" id="transaction_date" name="transaction_date" value="{{ form.transaction_date.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="transaction_time">Transaction Time</label>
+                <input type="time" class="form-control" id="transaction_time" name="transaction_time" value="{{ form.transaction_time.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" required>{{ form.description.value }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="process_status">Process Status</label>
+                <select class="form-control" id="process_status" name="process_status" required>
+                    {% for choice in form.process_status.field.choices %}
+                        <option value="{{ choice.0 }}" {% if choice.0 == form.process_status.value %}selected{% endif %}>
+                            {{ choice.1 }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Save</button>
+        </form>
+    </div>
+{% endblock %}

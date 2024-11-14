@@ -1,0 +1,54 @@
+{% extends 'atm/base.html' %}
+{% load form_tags %}
+
+{% block title %}Login Form - ATM Management System{% endblock %}
+
+{% block content %}
+<h1>Login Form</h1>
+<form method="post" class="form-horizontal">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="id_customer" class="col-sm-2 control-label">Customer</label>
+        <div class="col-sm-10">
+            {{ form.customer|add_class:"form-control" }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="id_username" class="col-sm-2 control-label">Username</label>
+        <div class="col-sm-10">
+            {{ form.username|add_class:"form-control" }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="id_password_hash" class="col-sm-2 control-label">Password hash</label>
+        <div class="col-sm-10">
+            {{ form.password_hash|add_class:"form-control" }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="id_last_login" class="col-sm-2 control-label">Last login</label>
+        <div class="col-sm-10">
+            {{ form.last_login|add_class:"form-control" }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var lastLoginField = document.getElementById("id_last_login");
+        var now = new Date();
+        var formattedDateTime = now.getFullYear() + "-" +
+            ("0" + (now.getMonth() + 1)).slice(-2) + "-" +
+            ("0" + now.getDate()).slice(-2) + " " +
+            ("0" + now.getHours()).slice(-2) + ":" +
+            ("0" + now.getMinutes()).slice(-2) + ":" +
+            ("0" + now.getSeconds()).slice(-2);
+        lastLoginField.value = formattedDateTime;
+    });
+</script>
+{% endblock %}

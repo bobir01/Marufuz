@@ -1,0 +1,36 @@
+{% extends 'atm/base.html' %}
+
+{% block title %}Card List - ATM Management System{% endblock %}
+
+{% block content %}
+    <h2>Card List</h2>
+    <a class="btn btn-primary mb-3" href="{% url 'card_create' %}">Add New Card</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Card Number</th>
+                <th>Customer</th>
+                <th>Bank Name</th>
+                <th>Card Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for card in cards %}
+                <tr>
+                    <td>{{ card.card_number }}</td>
+                    <td>{{ card.customer.first_name }} {{ card.customer.last_name }}</td>
+                    <td>{{ card.bank_name }}</td>
+                    <td>{{ card.card_status }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{% url 'card_update' card.pk %}">Edit</a>
+                        <form method="post" action="{% url 'card_delete' card.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

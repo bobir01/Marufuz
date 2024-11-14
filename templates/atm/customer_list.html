@@ -1,0 +1,35 @@
+{% extends 'atm/base.html' %}
+
+{% block title %}Customer List - ATM Management System{% endblock %}
+
+{% block content %}
+<h1>Customer List</h1>
+<a class="btn btn-primary mb-2" href="{% url 'customer_create' %}">Add New Customer</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.first_name }}</td>
+            <td>{{ customer.last_name }}</td>
+            <td>{{ customer.address }}</td>
+            <td>{{ customer.phone }}</td>
+            <td>{{ customer.phone_number }}</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" href="{% url 'customer_update' customer.id %}">Edit</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'customer_delete' customer.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

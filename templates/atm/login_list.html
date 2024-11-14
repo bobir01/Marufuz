@@ -1,0 +1,33 @@
+{% extends 'atm/base.html' %}
+
+{% block title %}Login List - ATM Management System{% endblock %}
+
+{% block content %}
+<h1>Login List</h1>
+<a class="btn btn-primary mb-2" href="{% url 'login_create' %}">Add New Login</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Customer</th>
+            <th>Username</th>
+            <th>Password Hash</th>
+            <th>Last Login</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for login in logins %}
+        <tr>
+            <td>{{ login.customer.first_name }} {{ login.customer.last_name }}</td>
+            <td>{{ login.username }}</td>
+            <td>{{ login.password_hash }}</td>
+            <td>{{ login.last_login }}</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" href="{% url 'login_update' login.id %}">Edit</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'login_delete' login.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

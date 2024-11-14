@@ -1,0 +1,41 @@
+{% extends 'atm/base.html' %}
+
+{% block title %}Card Form - ATM Management System{% endblock %}
+
+{% block content %}
+    <div class="login-container">
+        <h2 class="text-center">Card Form</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="card_number">Card Number</label>
+                <input type="text" class="form-control" id="card_number" name="card_number" value="{{ form.card_number.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="customer">Customer</label>
+                <select class="form-control" id="customer" name="customer" required>
+                    {% for customer in form.customer.field.queryset %}
+                        <option value="{{ customer.pk }}" {% if customer.pk == form.customer.value %}selected{% endif %}>
+                            {{ customer.first_name }} {{ customer.last_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="bank_name">Bank Name</label>
+                <input type="text" class="form-control" id="bank_name" name="bank_name" value="{{ form.bank_name.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="card_status">Card Status</label>
+                <select class="form-control" id="card_status" name="card_status" required>
+                    {% for choice in form.card_status.field.choices %}
+                        <option value="{{ choice.0 }}" {% if choice.0 == form.card_status.value %}selected{% endif %}>
+                            {{ choice.1 }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Save</button>
+        </form>
+    </div>
+{% endblock %}

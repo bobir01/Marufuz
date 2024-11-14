@@ -1,0 +1,41 @@
+{% extends 'atm/base.html' %}
+
+{% block title %}Log List - ATM Management System{% endblock %}
+
+{% block content %}
+<h1>Log List</h1>
+<a class="btn btn-primary mb-2" href="{% url 'log_create' %}">Add New Log</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>User ID</th>
+            <th>Action</th>
+            <th>Status</th>
+            <th>IP Address</th>
+            <th>Device</th>
+            <th>Location</th>
+            <th>Details</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.timestamp }}</td>
+            <td>{{ log.user_id }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.status }}</td>
+            <td>{{ log.ip_address }}</td>
+            <td>{{ log.device }}</td>
+            <td>{{ log.location }}</td>
+            <td>{{ log.details }}</td>
+            <td>
+                <a class="btn btn-sm btn-secondary" href="{% url 'log_update' log.id %}">Edit</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'log_delete' log.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

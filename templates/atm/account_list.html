@@ -1,0 +1,38 @@
+{% extends 'atm/base.html' %}
+
+{% block title %}Account List{% endblock %}
+
+{% block content %}
+    <h2>Account List</h2>
+    <a href="{% url 'account_create' %}">Add New Account</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Account Number</th>
+                <th>Account Type</th>
+                <th>Balance</th>
+                <th>Created At</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+                <tr>
+                    <td>{{ account.customer }}</td>
+                    <td>{{ account.account_number }}</td>
+                    <td>{{ account.account_type }}</td>
+                    <td>{{ account.balance }}</td>
+                    <td>{{ account.created_at }}</td>
+                    <td>{{ account.status }}</td>
+                    
+                    <td>
+                        <a href="{% url 'account_update' account.pk %}">Edit</a>
+                        <a href="{% url 'account_delete' account.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
